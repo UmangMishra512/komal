@@ -1,14 +1,18 @@
 /* ══════════════════════════════════════════════════════════
    BIRTHDAY WEBSITE — Main JavaScript
    Author: Built with ❤️
+   Data is loaded from localStorage (set by admin.html) first,
+   falling back to the built-in defaults below.
    ══════════════════════════════════════════════════════════ */
 
 'use strict';
 
 /* ──────────────────────────────────────────────
-   DATA — Edit all content here easily
+   DEFAULT DATA
+   (Admin panel writes to localStorage key 'birthdayData'
+    which overrides these defaults automatically)
    ──────────────────────────────────────────────*/
-const DATA = {
+const DEFAULTS = {
   /* Letter text — each string is one paragraph */
   letter: [
     "To the most wonderful person I know,",
@@ -84,6 +88,86 @@ const DATA = {
     }
   ]
 };
+
+/* ──────────────────────────────────────────────
+   LOAD DATA — merge localStorage over defaults
+   ──────────────────────────────────────────────*/
+const DATA = (function loadData() {
+  try {
+    const raw = localStorage.getItem('birthdayData');
+    if (!raw) return DEFAULTS;
+    const saved = JSON.parse(raw);
+    /* Deep merge: saved values win over defaults */
+    const merged = JSON.parse(JSON.stringify(DEFAULTS));
+    const merge = (target, source) => {
+      Object.keys(source).forEach(key => {
+        if (Array.isArray(source[key])) {
+          target[key] = source[key];
+        } else if (source[key] && typeof source[key] === 'object') {
+          target[key] = target[key] || {};
+          merge(target[key], source[key]);
+        } else if (source[key] !== undefined && source[key] !== null) {
+          target[key] = source[key];
+        }
+      });
+    };
+    merge(merged, saved);
+    return merged;
+  } catch (e) {
+    return DEFAULTS;
+  }
+})();
+
+/* Apply admin-editable hero fields to DOM */
+(function applyDynamicFields() {
+  /* Hero heading */
+  const heroTitle = document.querySelector('.hero-title');
+  if (heroTitle && DATA.hero) {
+    heroTitle.innerHTML = (DATA.hero.title || 'Happy Birthday ❤️')
+      .replace('❤️', '<span class="hero-heart-accent">❤️</span>');
+  }
+  /* Hero subtitle */
+  const heroSub = document.querySelector('.hero-subtitle');
+  if (heroSub && DATA.hero) heroSub.textContent = DATA.hero.subtitle || '';
+
+  /* Hero button */
+  const heroCta = document.getElementById('hero-cta');
+  if (heroCta && DATA.hero && DATA.hero.btnText) {
+    heroCta.childNodes[0].textContent = DATA.hero.btnText.replace('→', '') + ' ';
+  }
+
+  /* Hero badge */
+  const badge = document.querySelector('.hero-badge');
+  if (badge && DATA.hero) badge.textContent = DATA.hero.badge || '';
+
+  /* Footer name */
+  const footerName = document.querySelector('.footer-name');
+  if (footerName && DATA.footer) footerName.textContent = DATA.footer.name || '';
+
+  /* Footer sub */
+  const footerSub = document.querySelector('.footer-sub');
+  if (footerSub && DATA.footer) footerSub.textContent = DATA.footer.sub || '';
+
+  /* Timeline cards */
+  if (DATA.timeline) {
+    document.querySelectorAll('.timeline-card').forEach((card, i) => {
+      const d = DATA.timeline[i];
+      if (!d) return;
+      const iconEl    = card.querySelector('.timeline-icon');
+      const titleEl   = card.querySelector('.timeline-title');
+      const dateEl    = card.querySelector('.timeline-date');
+      const bodyParas = card.querySelectorAll('.timeline-body p:not(.timeline-note)');
+      if (iconEl)  iconEl.textContent  = d.icon    || '';
+      if (titleEl) titleEl.textContent = d.title   || '';
+      if (dateEl)  dateEl.textContent  = d.chapter || '';
+      if (bodyParas[0]) bodyParas[0].textContent = d.body || '';
+    });
+  }
+
+  /* Letter signature */
+  const sigName = document.querySelector('.letter-name');
+  if (sigName && DATA.letterSignature) sigName.textContent = DATA.letterSignature;
+})();
 
 /* ──────────────────────────────────────────────
    LOADING SCREEN

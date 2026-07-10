@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Birthday Website</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital@0;1&family=Dancing+Script:wght@600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+  <!-- ═══════════ PASSWORD GATE ═══════════ -->
+  <div class="gate" id="gate">
+    <div class="gate-card">
+      <div class="gate-logo">🎂</div>
+      <h1 class="gate-title">Admin Panel</h1>
+      <p class="gate-sub">Enter your password to continue</p>
+      <div class="gate-field">
+        <input type="password" id="gate-input" class="gate-input" placeholder="Password…" autocomplete="current-password" />
+        <button class="gate-btn" id="gate-btn">Unlock →</button>
+      </div>
+      <p class="gate-error hidden" id="gate-error">❌ Wrong password. Try again.</p>
+      <p class="gate-hint">Default password: <code>birthday</code></p>
+    </div>
+  </div>
+
+  <!-- ═══════════ ADMIN SHELL ═══════════ -->
+  <div class="admin hidden" id="admin">
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <span class="sidebar-logo-icon">🎂</span>
+        <span class="sidebar-logo-text">Admin</span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button class="nav-item active" data-section="hero">
+          <span class="nav-icon">🏠</span> Hero
+        </button>
+        <button class="nav-item" data-section="timeline">
+          <span class="nav-icon">🗺️</span> Timeline
+        </button>
+        <button class="nav-item" data-section="quiz">
+          <span class="nav-icon">😂</span> Quiz
+        </button>
+        <button class="nav-item" data-section="reasons">
+          <span class="nav-icon">❤️</span> Reasons
+        </button>
+        <button class="nav-item" data-section="gallery">
+          <span class="nav-icon">📸</span> Gallery
+        </button>
+        <button class="nav-item" data-section="letter">
+          <span class="nav-icon">💌</span> Letter
+        </button>
+        <button class="nav-item" data-section="footer">
+          <span class="nav-icon">📝</span> Footer
+        </button>
+        <button class="nav-item" data-section="settings">
+          <span class="nav-icon">⚙️</span> Settings
+        </button>
+      </nav>
+
+      <div class="sidebar-actions">
+        <button class="btn-save" id="btn-save">💾 Save All</button>
+        <a class="btn-preview" href="index.html" target="_blank">👁️ Preview Site</a>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="admin-main" id="admin-main">
+
+      <!-- Topbar -->
+      <header class="topbar">
+        <button class="sidebar-toggle" id="sidebar-toggle">☰</button>
+        <div class="topbar-title" id="topbar-title">Hero Section</div>
+        <div class="topbar-actions">
+          <span class="unsaved-badge hidden" id="unsaved-badge">● Unsaved changes</span>
+          <button class="btn-export" id="btn-export">⬇ Export JSON</button>
+          <label class="btn-import" for="import-input">⬆ Import JSON</label>
+          <input type="file" id="import-input" accept=".json" class="hidden" />
+        </div>
+      </header>
+
+      <!-- SECTION: HERO -->
+      <section class="editor-section active" id="section-hero">
+        <div class="section-head">
+          <h2>🏠 Hero Section</h2>
+          <p>Edit the main heading and intro text visitors see first.</p>
+        </div>
+        <div class="fields-grid">
+          <div class="field-group">
+            <label class="field-label">Main Heading</label>
+            <input type="text" class="field-input" id="hero-title" placeholder="Happy Birthday ❤️" />
+            <p class="field-hint">The big heading on the hero screen</p>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Sub-heading</label>
+            <textarea class="field-textarea" id="hero-subtitle" rows="2" placeholder="I wanted to build something instead of buying something."></textarea>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Button Text</label>
+            <input type="text" class="field-input" id="hero-btn-text" placeholder="Begin the Adventure →" />
+          </div>
+          <div class="field-group">
+            <label class="field-label">Badge Text</label>
+            <input type="text" class="field-input" id="hero-badge" placeholder="🎂 Today is Special" />
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION: TIMELINE -->
+      <section class="editor-section" id="section-timeline">
+        <div class="section-head">
+          <h2>🗺️ Timeline Cards</h2>
+          <p>Edit each chapter in your story. Click a card to expand.</p>
+        </div>
+        <div class="timeline-editor" id="timeline-editor">
+          <!-- generated by JS -->
+        </div>
+      </section>
+
+      <!-- SECTION: QUIZ -->
+      <section class="editor-section" id="section-quiz">
+        <div class="section-head">
+          <h2>😂 Quiz Questions</h2>
+          <p>Edit the funny questions and answer options.</p>
+        </div>
+        <div class="quiz-editor" id="quiz-editor">
+          <!-- generated by JS -->
+        </div>
+      </section>
+
+      <!-- SECTION: REASONS -->
+      <section class="editor-section" id="section-reasons">
+        <div class="section-head">
+          <h2>❤️ 20 Reasons</h2>
+          <p>Edit the icon, front label, and back detail for each card.</p>
+        </div>
+        <div class="reasons-editor" id="reasons-editor">
+          <!-- generated by JS -->
+        </div>
+      </section>
+
+      <!-- SECTION: GALLERY -->
+      <section class="editor-section" id="section-gallery">
+        <div class="section-head">
+          <h2>📸 Gallery</h2>
+          <p>Upload real photos, edit captions, remove items.</p>
+        </div>
+
+        <!-- Drop zone -->
+        <div class="drop-zone" id="drop-zone">
+          <div class="drop-zone-inner">
+            <span class="drop-icon">📁</span>
+            <p>Drag & drop images here</p>
+            <p class="drop-sub">or</p>
+            <label class="btn-upload" for="gallery-upload">Choose Photos</label>
+            <input type="file" id="gallery-upload" multiple accept="image/*" class="hidden" />
+          </div>
+        </div>
+
+        <div class="gallery-editor-grid" id="gallery-editor-grid">
+          <!-- generated by JS -->
+        </div>
+      </section>
+
+      <!-- SECTION: LETTER -->
+      <section class="editor-section" id="section-letter">
+        <div class="section-head">
+          <h2>💌 Love Letter</h2>
+          <p>Each paragraph is typed out one-by-one. Edit or add paragraphs.</p>
+        </div>
+        <div class="letter-editor" id="letter-editor">
+          <!-- generated by JS -->
+        </div>
+        <button class="btn-add-para" id="btn-add-para">+ Add Paragraph</button>
+
+        <div class="field-group" style="margin-top:2rem">
+          <label class="field-label">Signature Name</label>
+          <input type="text" class="field-input" id="letter-signature" placeholder="Someone who really means it ❤️" />
+        </div>
+      </section>
+
+      <!-- SECTION: FOOTER -->
+      <section class="editor-section" id="section-footer">
+        <div class="section-head">
+          <h2>📝 Footer</h2>
+          <p>Edit the credit line at the bottom of the page.</p>
+        </div>
+        <div class="fields-grid">
+          <div class="field-group">
+            <label class="field-label">Credit Line</label>
+            <input type="text" class="field-input" id="footer-name" placeholder="Someone Who Wanted to Make You Smile" />
+          </div>
+          <div class="field-group">
+            <label class="field-label">Sub-line</label>
+            <input type="text" class="field-input" id="footer-sub" placeholder="Happy Birthday. You deserve every bit of this. 🎂" />
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION: SETTINGS -->
+      <section class="editor-section" id="section-settings">
+        <div class="section-head">
+          <h2>⚙️ Settings</h2>
+          <p>Change your admin password or reset all data.</p>
+        </div>
+        <div class="fields-grid">
+          <div class="field-group">
+            <label class="field-label">Change Password</label>
+            <input type="password" class="field-input" id="new-password" placeholder="New password…" />
+            <button class="btn-action" id="btn-change-pw">Update Password</button>
+          </div>
+          <div class="field-group">
+            <label class="field-label danger-label">⚠️ Reset Everything</label>
+            <p class="field-hint">This clears all your edits and restores the default content.</p>
+            <button class="btn-danger" id="btn-reset">Reset to Defaults</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Toast notification -->
+  <div class="toast hidden" id="toast"></div>
+
+  <script src="admin.js"></script>
+</body>
+</html>
