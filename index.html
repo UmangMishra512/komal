@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A heartfelt, interactive birthday website crafted with love — full of memories, laughs, and reasons why you're amazing." />
+  <title>Happy Birthday ❤️</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════
+       LOADING SCREEN
+  ═══════════════════════════════════════════════════════ -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-content">
+      <div class="loading-heart">❤️</div>
+      <h1 class="loading-title">Initializing Birthday Protocol…</h1>
+      <p class="loading-subtitle" id="loading-message">Loading Memories…</p>
+      <div class="progress-bar-wrapper">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+      <p class="loading-percent" id="loading-percent">0%</p>
+    </div>
+    <!-- Floating particles in background -->
+    <div class="loading-particles" id="loading-particles"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       CURSOR GLOW
+  ═══════════════════════════════════════════════════════ -->
+  <div class="cursor-glow" id="cursor-glow"></div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       NAVIGATION
+  ═══════════════════════════════════════════════════════ -->
+  <nav class="nav" id="main-nav">
+    <div class="nav-logo">❤️ Birthday</div>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#hero" class="nav-link">Home</a></li>
+      <li><a href="#timeline" class="nav-link">Our Story</a></li>
+      <li><a href="#quiz" class="nav-link">Quiz</a></li>
+      <li><a href="#reasons" class="nav-link">Why You're Amazing</a></li>
+      <li><a href="#gallery" class="nav-link">Gallery</a></li>
+      <li><a href="#letter" class="nav-link">Letter</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════
+       HERO SECTION
+  ═══════════════════════════════════════════════════════ -->
+  <section class="hero" id="hero">
+    <!-- Animated particle canvas -->
+    <canvas class="hero-canvas" id="hero-canvas"></canvas>
+
+    <!-- Floating hearts layer -->
+    <div class="hero-hearts" id="hero-hearts"></div>
+
+    <div class="hero-content reveal-up">
+      <div class="hero-badge">🎂 Today is Special</div>
+      <h1 class="hero-title">
+        Happy Birthday
+        <span class="hero-heart-accent">❤️</span>
+      </h1>
+      <p class="hero-subtitle">
+        "I wanted to build something<br />instead of buying something."
+      </p>
+      <a href="#timeline" class="hero-btn" id="hero-cta">
+        Begin the Adventure
+        <span class="btn-arrow">→</span>
+      </a>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator">
+      <div class="scroll-dot"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       TIMELINE SECTION
+  ═══════════════════════════════════════════════════════ -->
+  <section class="section timeline-section" id="timeline">
+    <div class="container">
+      <div class="section-header reveal-up">
+        <span class="section-tag">Our Story</span>
+        <h2 class="section-title">How We Got Here 🗺️</h2>
+        <p class="section-desc">Click each moment to see more</p>
+      </div>
+
+      <div class="timeline" id="timeline-track">
+
+        <div class="timeline-item reveal-left" data-index="0">
+          <div class="timeline-card" id="timeline-card-0">
+            <div class="timeline-card-header">
+              <span class="timeline-icon">✨</span>
+              <h3 class="timeline-title">The Day We Met</h3>
+              <span class="timeline-date">Chapter 1</span>
+            </div>
+            <div class="timeline-body">
+              <p>It started the way all great stories do — completely unexpectedly. One moment everything was ordinary, and the next moment, there you were. The universe has a funny way of doing that.</p>
+              <p class="timeline-note">📝 <em>Edit this with your real story!</em></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal-right" data-index="1">
+          <div class="timeline-card" id="timeline-card-1">
+            <div class="timeline-card-header">
+              <span class="timeline-icon">😂</span>
+              <h3 class="timeline-title">Our First Funny Moment</h3>
+              <span class="timeline-date">Chapter 2</span>
+            </div>
+            <div class="timeline-body">
+              <p>I honestly can't remember what started the laughing, but I remember not being able to stop. That's when I realized — you make the ordinary hilarious. Every single time.</p>
+              <p class="timeline-note">📝 <em>Replace with your funniest shared memory!</em></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal-left" data-index="2">
+          <div class="timeline-card" id="timeline-card-2">
+            <div class="timeline-card-header">
+              <span class="timeline-icon">😅</span>
+              <h3 class="timeline-title">Our First Fight</h3>
+              <span class="timeline-date">Chapter 3</span>
+            </div>
+            <div class="timeline-body">
+              <p>We disagreed. Loudly. About something that definitely seemed very important at the time. Looking back? I can barely remember what it was. But I do remember we figured it out.</p>
+              <p class="timeline-note">📝 <em>Every great story has a conflict. Yours does too!</em></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal-right" data-index="3">
+          <div class="timeline-card" id="timeline-card-3">
+            <div class="timeline-card-header">
+              <span class="timeline-icon">❤️</span>
+              <h3 class="timeline-title">My Favorite Memory</h3>
+              <span class="timeline-date">Chapter 4</span>
+            </div>
+            <div class="timeline-body">
+              <p>If I had to pick just one moment to keep forever, it would be this one. No fancy setting. No big occasion. Just you, exactly as you are. That was enough. That was everything.</p>
+              <p class="timeline-note">📝 <em>Write your most treasured memory here!</em></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal-up" data-index="4">
+          <div class="timeline-card timeline-card-special" id="timeline-card-4">
+            <div class="timeline-card-header">
+              <span class="timeline-icon">🎂</span>
+              <h3 class="timeline-title">Today</h3>
+              <span class="timeline-date">Chapter 5 — Right Now</span>
+            </div>
+            <div class="timeline-body">
+              <p>Today you're another year older, another year wiser, and somehow even more wonderful than yesterday. I built this entire website just to remind you of that. Happy Birthday. ❤️</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       FUNNY QUIZ SECTION
+  ═══════════════════════════════════════════════════════ -->
+  <section class="section quiz-section" id="quiz">
+    <div class="container">
+      <div class="section-header reveal-up">
+        <span class="section-tag">Fun Time</span>
+        <h2 class="section-title">How Well Do You Know Yourself? 😂</h2>
+        <p class="section-desc">Answer honestly. Or don't. Either way, we both know the truth.</p>
+      </div>
+
+      <div class="quiz-wrapper reveal-up">
+        <!-- Quiz progress -->
+        <div class="quiz-progress-wrap">
+          <div class="quiz-progress-bar" id="quiz-progress-bar"></div>
+        </div>
+        <p class="quiz-count" id="quiz-count">Question 1 of 6</p>
+
+        <!-- Question display -->
+        <div class="quiz-card" id="quiz-card">
+          <p class="quiz-question" id="quiz-question">Who gets angry first?</p>
+          <div class="quiz-options" id="quiz-options"></div>
+        </div>
+
+        <!-- Result display -->
+        <div class="quiz-result" id="quiz-result">
+          <div class="quiz-result-icon" id="quiz-result-icon">✅</div>
+          <p class="quiz-result-text" id="quiz-result-text">Correct 😂❤️</p>
+          <button class="quiz-next-btn" id="quiz-next-btn">Next Question →</button>
+        </div>
+
+        <!-- Final score -->
+        <div class="quiz-final" id="quiz-final">
+          <div class="quiz-final-emoji">🏆</div>
+          <h3 class="quiz-final-title">Self-Awareness Score: 100%</h3>
+          <p class="quiz-final-sub">You answered perfectly. Mostly because all answers were the same. 😂❤️</p>
+          <button class="quiz-restart-btn" id="quiz-restart-btn">Play Again 🔄</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       REASONS I LOVE YOU
+  ═══════════════════════════════════════════════════════ -->
+  <section class="section reasons-section" id="reasons">
+    <div class="container">
+      <div class="section-header reveal-up">
+        <span class="section-tag">From the Heart</span>
+        <h2 class="section-title">20 Reasons Why You're Amazing ❤️</h2>
+        <p class="section-desc">Tap each card to reveal the reason</p>
+      </div>
+
+      <div class="reasons-grid" id="reasons-grid">
+        <!-- Cards generated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       MEMORY GALLERY
+  ═══════════════════════════════════════════════════════ -->
+  <section class="section gallery-section" id="gallery">
+    <div class="container">
+      <div class="section-header reveal-up">
+        <span class="section-tag">Memories</span>
+        <h2 class="section-title">Our Little Gallery 📸</h2>
+        <p class="section-desc">Click any photo to make it bigger (and relive it longer)</p>
+      </div>
+
+      <div class="gallery-grid reveal-up" id="gallery-grid">
+        <!-- Generated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Image Modal -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal-box" id="modal-box">
+      <button class="modal-close" id="modal-close">✕</button>
+      <div class="modal-image-wrap" id="modal-image-wrap"></div>
+      <p class="modal-caption" id="modal-caption"></p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SECRET BUTTON
+  ═══════════════════════════════════════════════════════ -->
+  <section class="section secret-section" id="secret">
+    <div class="container">
+      <div class="section-header reveal-up">
+        <span class="section-tag">⚠️ Danger Zone</span>
+        <h2 class="section-title">There is a button below.</h2>
+        <p class="section-desc">Please, for everyone's sake, do not press it.</p>
+      </div>
+      <div class="secret-center reveal-up">
+        <button class="secret-btn" id="secret-btn">
+          <span class="secret-warning">⚠️</span>
+          DO NOT PRESS
+          <span class="secret-warning">⚠️</span>
+        </button>
+        <p class="secret-hint">Seriously. Don't.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Celebration overlay -->
+  <div class="celebration-overlay" id="celebration-overlay">
+    <div class="celebration-content">
+      <div class="celebration-emoji">🎉</div>
+      <h2 class="celebration-title">Happy Birthday!!!</h2>
+      <p class="celebration-sub">❤️ You pressed it. Of course you did. ❤️</p>
+      <button class="celebration-close" id="celebration-close">Close the Party (Never 🎉)</button>
+    </div>
+    <canvas class="confetti-canvas" id="confetti-canvas"></canvas>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       LOVE LETTER
+  ═══════════════════════════════════════════════════════ -->
+  <section class="section letter-section" id="letter">
+    <div class="container">
+      <div class="section-header reveal-up">
+        <span class="section-tag">A Little Something</span>
+        <h2 class="section-title">A Letter For You 💌</h2>
+      </div>
+
+      <div class="letter-card reveal-up">
+        <div class="letter-paper">
+          <div class="letter-header">
+            <span class="letter-date" id="letter-date">Today</span>
+          </div>
+          <div class="letter-body" id="letter-body">
+            <!-- Typed by JS -->
+          </div>
+          <div class="letter-signature">
+            <span>With love,</span>
+            <span class="letter-name">Someone who really means it ❤️</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       COUNTDOWN SECTION
+  ═══════════════════════════════════════════════════════ -->
+  <section class="section countdown-section" id="countdown">
+    <div class="container">
+      <div class="section-header reveal-up">
+        <span class="section-tag">Mark Your Calendar</span>
+        <h2 class="section-title">Next year, I'll do even better ❤️</h2>
+      </div>
+
+      <div class="countdown-display reveal-up">
+        <div class="countdown-ring-wrap">
+          <svg class="countdown-ring" viewBox="0 0 200 200">
+            <circle class="countdown-ring-bg" cx="100" cy="100" r="90"/>
+            <circle class="countdown-ring-fill" id="countdown-ring-fill" cx="100" cy="100" r="90"/>
+          </svg>
+          <div class="countdown-inner">
+            <span class="countdown-number" id="countdown-days">365</span>
+            <span class="countdown-label">Days</span>
+          </div>
+        </div>
+        <p class="countdown-text">Until I make an even better website ❤️</p>
+        <div class="countdown-units">
+          <div class="countdown-unit">
+            <span class="cu-num" id="cu-hours">00</span>
+            <span class="cu-label">Hours</span>
+          </div>
+          <div class="countdown-unit">
+            <span class="cu-num" id="cu-mins">00</span>
+            <span class="cu-label">Minutes</span>
+          </div>
+          <div class="countdown-unit">
+            <span class="cu-num" id="cu-secs">00</span>
+            <span class="cu-label">Seconds</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════════════════ -->
+  <footer class="footer" id="footer">
+    <div class="footer-hearts" id="footer-hearts"></div>
+    <div class="footer-content">
+      <p class="footer-text">
+        Made with <span class="footer-heart-anim">❤️</span> by
+        <span class="footer-name">Someone Who Wanted to Make You Smile</span>
+      </p>
+      <p class="footer-sub">Happy Birthday. You deserve every bit of this. 🎂</p>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════════════════
+       BACK TO TOP
+  ═══════════════════════════════════════════════════════ -->
+  <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+    ↑
+  </button>
+
+  <!-- Floating Hearts Container (global) -->
+  <div class="global-hearts" id="global-hearts"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
