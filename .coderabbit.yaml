@@ -1,0 +1,28 @@
+# CodeRabbit Configuration
+# https://docs.coderabbit.ai/guides/configure-coderabbit
+
+language: "en-US"
+
+reviews:
+  # Review profile: chill = less strict, assertive = strict
+  profile: "assertive"
+  request_changes_workflow: false
+  high_level_summary: true
+  poem: true
+  review_status: true
+  collapse_walkthrough: false
+
+  # Auto-review all PRs
+  auto_review:
+    enabled: true
+    drafts: false
+    base_branches:
+      - "main"
+
+  # What to check
+  path_filters:
+    - "!.git/**"
+    - "!node_modules/**"
+
+chat:
+  auto_reply: true
