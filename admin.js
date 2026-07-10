@@ -120,10 +120,19 @@ function loadData() {
 
 /** Persist currentData to localStorage */
 function saveData() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(currentData));
-  isDirty = false;
-  document.getElementById('unsaved-badge').classList.add('hidden');
-  showToast('✅ All changes saved!', 'success');
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(currentData));
+    isDirty = false;
+    document.getElementById('unsaved-badge').classList.add('hidden');
+    showToast('✅ All changes saved!', 'success');
+  } catch (e) {
+    if (e.name === 'QuotaExceededError') {
+      showToast('❌ Storage full! Images are too large.', 'error');
+    } else {
+      showToast('❌ Failed to save data.', 'error');
+    }
+    console.error(e);
+  }
 }
 
 /** Mark dirty (unsaved changes) */
@@ -525,19 +534,45 @@ function addGalleryCard(item, i) {
 function readImageFile(file, idx) {
   const reader = new FileReader();
   reader.onload = (ev) => {
-    if (idx >= 0 && idx < currentData.gallery.length) {
-      currentData.gallery[idx].src = ev.target.result;
-    } else {
-      /* New item */
-      currentData.gallery.push({
-        src:     ev.target.result,
-        caption: file.name.replace(/\.[^.]+$/, ''),
-        icon:    '📷',
-        bg:      '#fff0f5'
-      });
-    }
-    renderGallery();
-    markDirty();
+    const img = new Image();
+    img.onload = () => {
+      /* Compress image using canvas */
+      const MAX_WIDTH = 1000;
+      const MAX_HEIGHT = 1000;
+      let width = img.width;
+      let height = img.height;
+      if (width > MAX_WIDTH || height > MAX_HEIGHT) {
+        if (width > height) {
+          height = Math.floor(height * (MAX_WIDTH / width));
+          width = MAX_WIDTH;
+        } else {
+          width = Math.floor(width * (MAX_HEIGHT / height));
+          height = MAX_HEIGHT;
+        }
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, width, height);
+      
+      const compressedSrc = canvas.toDataURL('image/jpeg', 0.7);
+
+      if (idx >= 0 && idx < currentData.gallery.length) {
+        currentData.gallery[idx].src = compressedSrc;
+      } else {
+        /* New item */
+        currentData.gallery.push({
+          src:     compressedSrc,
+          caption: file.name.replace(/\.[^.]+$/, ''),
+          icon:    '📷',
+          bg:      '#fff0f5'
+        });
+      }
+      renderGallery();
+      markDirty();
+    };
+    img.src = ev.target.result;
   };
   reader.readAsDataURL(file);
 }
