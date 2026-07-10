@@ -130,10 +130,11 @@ const DATA = {
     const milestone = Math.floor(progress / 20);
     if (milestone > msgIdx && msgIdx < messages.length - 1) {
       msgIdx = milestone;
+      /* Set transition once upfront, not inside the timeout */
+      message.style.transition = 'opacity 0.4s ease';
       message.style.opacity = '0';
       setTimeout(() => {
         message.textContent = messages[Math.min(msgIdx, messages.length - 1)];
-        message.style.transition = 'opacity 0.4s ease';
         message.style.opacity = '1';
       }, 200);
     }
@@ -153,6 +154,9 @@ const DATA = {
    CUSTOM CURSOR GLOW
    ──────────────────────────────────────────────*/
 (function initCursor() {
+  /* Only initialise cursor glow on devices with a fine pointer (mouse) */
+  if (!window.matchMedia('(pointer: fine)').matches) return;
+
   const glow = document.getElementById('cursor-glow');
   let mouseX = 0, mouseY = 0;
   let curX = 0, curY = 0;
@@ -232,8 +236,9 @@ document.addEventListener('click', (e) => {
   const particles = [];
 
   function resize() {
-    canvas.width  = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
+    /* Use clientWidth/clientHeight — offsetWidth can be 0 before first paint */
+    canvas.width  = canvas.clientWidth  || canvas.parentElement.clientWidth;
+    canvas.height = canvas.clientHeight || canvas.parentElement.clientHeight;
   }
   resize();
   window.addEventListener('resize', resize);
@@ -341,7 +346,7 @@ document.getElementById('hero-cta').addEventListener('click', function(e) {
 (function initReveal() {
   const items = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right');
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
+    entries.forEach((entry) => {   /* removed unused 'i' parameter */
       if (entry.isIntersecting) {
         /* Stagger siblings */
         const delay = (Array.from(entry.target.parentElement.children).indexOf(entry.target)) * 80;
@@ -547,6 +552,8 @@ document.getElementById('hero-cta').addEventListener('click', function(e) {
   });
 
   function openModal(item, i) {
+    /* Reset background so placeholder bg doesn't bleed onto real images */
+    imgWrap.style.background = '';
     imgWrap.innerHTML = '';
 
     if (item.src) {
@@ -636,7 +643,11 @@ document.getElementById('hero-cta').addEventListener('click', function(e) {
     }
 
     function drawConfetti() {
-      if (!confettiActive) return;
+      /* Guard at every frame entry so rAF stops immediately on flag flip */
+      if (!confettiActive) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        return;
+      }
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       confettiPieces = confettiPieces.filter(p => p.y < canvas.height + 20);
