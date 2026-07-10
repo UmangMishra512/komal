@@ -850,5 +850,15 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
+/* ──────────────────────────────────────────────
+   SECRET ADMIN PANEL TRIGGER
+   ──────────────────────────────────────────────*/
+const adminTrigger = document.getElementById('secret-admin-trigger');
+if (adminTrigger) {
+  adminTrigger.addEventListener('dblclick', () => {
+    window.location.href = 'admin.html';
+  });
+}
+
 console.log('%c❤️ Happy Birthday! This website was made with a lot of love.', 
   'color: #ff4d80; font-size: 16px; font-family: serif; padding: 8px;');
