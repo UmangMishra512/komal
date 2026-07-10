@@ -79,9 +79,9 @@ img { display: block; max-width: 100%; }
 button { cursor: pointer; border: none; background: none; font-family: var(--font-body); }
 ul { list-style: none; }
 
-/* Only hide cursor on fine-pointer (mouse) devices */
+/* Allow default cursor, glow will follow behind it */
 @media (pointer: fine) {
-  body { cursor: none; }
+  body { cursor: auto; }
 }
 
 /* ───────────────── CUSTOM CURSOR ───────────────── */
